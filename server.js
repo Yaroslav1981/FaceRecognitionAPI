@@ -46,5 +46,5 @@ app.post('/register', (res, req)=>{handleRegister(res,req, knex, bcrypt)});
 app.put ('/image', (res, req)=>{handleEntries(res, req, knex)})
 
 
-app.listen(8080,()=>{
+app.listen(process.env.PORT || 8080,()=>{
  })
