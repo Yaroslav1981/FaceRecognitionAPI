@@ -9,11 +9,11 @@ const cors = require('cors');
 const knex = require('knex')({
     client: 'pg',
     connection: {
-      host: '127.0.0.1',
-      port: 5432,
-      user: 'postgres',
-      password: 'test',
-      database: 'smart-brain',
+      host: process.env.Database__HOSTNAME,
+      port: process.env.Database__PORT,
+      user: process.env.Database__USER,
+      password: process.env.Database__PASSWORD,
+      database: process.env.Database__NAME,
     },
   });
 
@@ -46,5 +46,5 @@ app.post('/register', (res, req)=>{handleRegister(res,req, knex, bcrypt)});
 app.put ('/image', (res, req)=>{handleEntries(res, req, knex)})
 
 
-app.listen(process.env.PORT || 8080,()=>{
+app.listen(process.env.PORT || 5432,()=>{
  })
