@@ -11,8 +11,6 @@
     const hash = bcrypt.hashSync(password, 10)
     if( !email || !password || !name){
         return res.status(400).json({status:400, err: {}});
-    }else if(flag) {
-        return res.status(400).json({status:401, err: {}});
     }else{
         knex.transaction(trx=>{
             trx.insert(
