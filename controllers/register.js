@@ -2,10 +2,11 @@
   const handleRegister = (req, res, knex, bcrypt)=>{
 
     const {email, password,name} = req.body;
+    const flag = knex.select("email").form('users').then(true).catch(false);
     const hash = bcrypt.hashSync(password, 10)
     if( !email || !password || !name){
         return res.status(400).json({status:400, err: err});
-    }else if( knex.select("email").form('users').then(true).catch(false)){
+    }else if(flag) {
         return res.status(400).json({status:401, err: err});
     }
     knex.transaction(trx=>{
