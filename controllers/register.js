@@ -7,7 +7,10 @@
     .then(data=>{
         console.log(data);
         flag=true;
-    }).catch(err=>{flag = false});
+    }).catch(err=>{
+        console.error(err);
+        flag = false;
+    });
     const hash = bcrypt.hashSync(password, 10)
     if( !email || !password || !name){
         return res.status(400).json({status:400, err: {}});
