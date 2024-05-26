@@ -9,31 +9,33 @@
         return res.status(400).json({status:400, err: err});
     }else if(flag) {
         return res.status(400).json({status:401, err: err});
-    }
-    knex.transaction(trx=>{
-        trx.insert(
-            {   hash: hash,
-                email: email
-            }
-        )
-        .into('login')
-        .returning('email')
-        .then(loginEmail=>{
-            return trx('users')
-                .returning('*')
-                .insert(
-                    {   name: name,
-                        email: loginEmail[0].email,
-                        joined: new Date, 
-                    }
-                ).then(user=>{
-                res.json({status:200,user: user[0]})
-                })
+    }else{
+        knex.transaction(trx=>{
+            trx.insert(
+                {   hash: hash,
+                    email: email
+                }
+            )
+            .into('login')
+            .returning('email')
+            .then(loginEmail=>{
+                return trx('users')
+                    .returning('*')
+                    .insert(
+                        {   name: name,
+                            email: loginEmail[0].email,
+                            joined: new Date, 
+                        }
+                    ).then(user=>{
+                    res.json({status:200,user: user[0]})
+                    })
+            })
+            .then(trx.commit)
+            .catch(trx.rollback);
         })
-        .then(trx.commit)
-        .catch(trx.rollback);
-    })
-    .catch(err => res.status(400).json({status:400, err: err}));
+        .catch(err => res.status(400).json({status:400, err: err}));
+    }
+    
 }
 
 
