@@ -3,7 +3,7 @@
 
     const {email, password,name} = req.body;
     let flag;
-    knex.select("*").from('users').where('email', '=',email).then(true).catch(err=>{flag = false});
+    knex.select("*").from('users').where('email', '=',email).then(flag=true).catch(err=>{flag = false});
     const hash = bcrypt.hashSync(password, 10)
     if( !email || !password || !name){
         return res.status(400).json({status:400, err: err});
