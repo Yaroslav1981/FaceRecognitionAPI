@@ -3,18 +3,10 @@
 
     const {email, password,name} = req.body;
     let flag;
-    const ifUserExist=()=>{
-        return knex.select("*").from('users').where('email', '=',email)
-        .then(data=>{
-            return true;
-        }).catch(false)
-    }
-    
+   
     const hash = bcrypt.hashSync(password, 10)
     if( !email || !password || !name){
         return res.status(400).json({status:400, err: {}});
-    }else if(ifUserExist()){
-        return res.status(400).json({status:401, err: {}});
     }else{
         knex.transaction(trx=>{
             trx.insert(
