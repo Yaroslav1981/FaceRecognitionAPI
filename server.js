@@ -11,11 +11,11 @@ const knex = require('knex')({
     connection: {
       ssl: { rejectUnauthorized: false },
       connectionString: process.env.DATABASE__URL,
-      host: process.env.Database__HOSTNAME,
-      port: process.env.Database__PORT,
-      user: process.env.Database__USER,
-      password: process.env.Database__PASSWORD,
-      database: process.env.Database__NAME,
+      host: process.env.DATABASE__HOSTNAME,
+      port: process.env.DATABASE__PORT,
+      user: process.env.DATABASE__USER,
+      password: process.env.DATABASE__PASSWORD,
+      database: process.env.DATABASE__NAME,
     },
   });
 
