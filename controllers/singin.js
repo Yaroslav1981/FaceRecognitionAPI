@@ -19,4 +19,4 @@ const handleSingin =  (req, res, knex, bcrypt)=>{
     }).catch(err => res.status(400).json({status:400, err: err}));
     //return res.json({status: 404, comment:"There arent any youser"})
 }
-exports.handleSingin =handleSingin;
+exports.handleSingin = handleSingin;
